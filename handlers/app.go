@@ -9,7 +9,7 @@ import (
 )
 
 func Start(){
-	token := "ODA5OTM3MDIwMjE4NTA3MzI1.Gn3_Yw.S_TOk0uXkadVfxnbM-0J02CqaKiKJH2245VncU"
+	token := ""
 	repo, err := discord.NewDiscord(token)
 	if err != nil {
 		fmt.Printf("%v", err)
