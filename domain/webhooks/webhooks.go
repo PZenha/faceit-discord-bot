@@ -68,7 +68,7 @@ type Webhook struct {
 }
 
 type WebhooksRepository interface {
-	WriteToChannel(event string) error
+	MessageWebhook(webhook Webhook) error
 }
 
 type WebhooksService interface {

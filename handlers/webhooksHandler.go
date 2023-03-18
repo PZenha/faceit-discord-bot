@@ -1,31 +1,29 @@
 package handlers
 
 import (
-	"io/ioutil"
+	"encoding/json"
 
-	"github.com/gin-gonic/gin"
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/projects/faceit-discord/domain/webhooks"
 )
-
 
 type WebhookHandlers struct {
 	service webhooks.WebhooksService
 }
 
-
-func NewWebhooksHandlers(service webhooks.WebhooksService) *WebhookHandlers{
+func NewWebhooksHandlers(service webhooks.WebhooksService) *WebhookHandlers {
 	return &WebhookHandlers{
 		service: service,
 	}
 }
 
-func (wh *WebhookHandlers) handleWebhook(c *gin.Context) {
+func (wh *WebhookHandlers) HandleWebhook(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	//body := c.Request.Body
-	body, _ := ioutil.ReadAll(c.Request.Body)
-	println(string(body))
-	wh.service.ProcessWebhook(webhooks.Webhook{Event: "From Handler"})
+	b := []byte(request.Body)
+	var webhook webhooks.Webhook
+	json.Unmarshal(b, &webhook)
 
-	c.JSON(200, gin.H{
-		"ok": 1,
-	})
+	wh.service.ProcessWebhook(webhook)
+
+	return events.APIGatewayProxyResponse{Body: "ok", StatusCode: 200}, nil
 }

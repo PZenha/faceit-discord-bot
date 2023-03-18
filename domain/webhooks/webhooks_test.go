@@ -9,7 +9,7 @@ import (
 
 type MockWebhooksRepo struct{}
 
-func (m *MockWebhooksRepo) WriteToChannel(event string) error {
+func (m *MockWebhooksRepo) MessageWebhook(webhook webhooks.Webhook) error {
 	return nil
 }
 

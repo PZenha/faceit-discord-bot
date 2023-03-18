@@ -16,8 +16,8 @@ func NewWebhooksService(repo webhooks.WebhooksRepository) *WebhookServive {
 	}
 }
 
-func (wh *WebhookServive) ProcessWebhook(webhook webhooks.Webhook) error{
-	err := wh.repo.WriteToChannel(webhook.Event)
+func (wh *WebhookServive) ProcessWebhook(webhook webhooks.Webhook) error {
+	err := wh.repo.MessageWebhook(webhook)
 	if err != nil {
 		return errors.New("failed to write to channel")
 	}
