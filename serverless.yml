@@ -7,10 +7,6 @@ provider:
   runtime: go1.x
   region: eu-west-1
 
-plugins:
-  - serverless-dotenv-plugin
-
-
 package:
   patterns:
     - '!./**'
