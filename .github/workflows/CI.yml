@@ -26,12 +26,18 @@ jobs:
         run: go test -v ./...
 
       - name: Serverless deploy
-        uses: serverless/github-action@v3.1
-        with: 
-          args: deploy
-        env: 
-          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+       - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+      - name: Serverless AWS authentication
+        run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Deploy
+        run: sls deploy
 
 
 
