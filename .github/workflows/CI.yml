@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: "16.x"
 
       - name: Install Serverless Framework
         run: npm install -g serverless
